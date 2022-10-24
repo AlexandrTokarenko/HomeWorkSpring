@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="text-center">
+    <h1>Регистрация</h1>
+    </div>
+    <form action="addUser" method="post" class="needs-validation" novalidate>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="firstName">Имя</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Василий" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="lastName">Фамилия</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Гул" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="email">Электронная почта</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="123@gmail.com" required>
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label for="phone">Номер телефона</label>
+                <input type="number" class="form-control"  maxlength="10" id="phone" placeholder="0630000000" name="phone" required>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="password">Пароль</label>
+                <input type="password" class="form-control" id="password" name="password" minlength="8"
+                       maxlength="15" size="15" required aria-describedby="passwordHelpInline">
+                <small id="passwordHelpInline" class="text-muted">
+                    Минимум 8 символов.
+                    <br>
+                    Пароль должен содержать цифры и буквы!
+                </small>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Регистрация</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация про авто</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1 class="text-center" th:text="${car.brand} + ' ' + ${car.model}"></h1>
+    <table style="width: 70%;margin: auto" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Год</th>
+            <th>Цена (в долларах)</th>
+            <th>Пробег (в км)</th>
+            <th>Объем двигателя (в литрах)</th>
+            <th>Коробка передач</th>
+            <th>Топливо</th>
+            <th>Кузов</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ca : ${car}">
+                <td th:text="${car.year}"></td>
+                <td th:text="${car.price}"></td>
+                <td th:text="${car.mileage}"></td>
+                <td th:text="${car.engineVolume}"></td>
+                <td th:text="${car.transmission.title}"></td>
+                <td th:text="${car.fuel.title}"></td>
+                <td th:text="${car.type.title}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="width: 70%;margin: auto">
+        <h4>Описание</h4>
+        <p th:text="${car.additionalInformation}"></p>
+    </div>
+    <div  style="width: 70%;margin: auto">
+        <h4>Контакты владельца</h4>
+        <p th:text="'Номер телефона: ' + ${car.user.phone}"></p>
+        <p th:text="'Электронная почта: ' + ${car.user.email}"></p>
+    </div>
+</body>
+</html>

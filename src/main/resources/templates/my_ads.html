@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои объявления</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<form th:action="@{/click_add_ad/{id}(id=${user.id})}">
+    <button type="submit" style="margin: 0 0 0 auto;" class="btn btn-success" >Выставить объявление</button>
+</form>
+<form th:action="@{/goMainMenu/{id}(id=${user.id})}">
+    <button type="submit" style="margin: 0 0 0 auto;" class="btn btn-primary" >Основное меню</button>
+</form>
+<table style="width: 50%;margin: auto" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Марка</th>
+        <th>Модель</th>
+        <th>Год</th>
+        <th>Цена</th>
+        <th width="200">Подробная информация</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each="car : ${cars}">
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.model}"></td>
+            <td th:text="${car.year}"></td>
+            <td th:text="${car.price}"></td>
+            <td>  <a th:href="@{/car_information/{id}(id=${car.id})}">Информация</a></td>
+            <td><a th:href="@{/edit_ad/{userId}/{adId}(userId=${user.id},adId=${car.id})}">изменить</a></td>
+            <td><a th:href="@{/delete_ad/{userId}/{adId}(userId=${user.id},adId=${car.id})}">удалить</a></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

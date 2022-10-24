@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Фильтр</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="text-center">
+        <h1>Фильтр</h1>
+    </div>
+    <form style=" width:50%; margin: auto;" th:action="@{/search_by_filter/{id}(id=${user.id})}">
+        <div class="form-group">
+            <label for="carBrand" class="form-label">Марка авто</label>
+            <input type="text" class="form-control" name="carBrand" id="carBrand">
+        </div>
+        <div class="form-group">
+            <label for="carModel" class="form-label">Модель авто</label>
+            <input type="text" class="form-control" name="carModel" id="carModel">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="firstYear" class="form-label">Год, от</label>
+                <input type="number" class="form-control" name="firstYear" value="0" id="firstYear">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="lastYear" class="form-label">Год, до</label>
+                <input type="number" class="form-control" name="lastYear" value="2022" id="lastYear">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="firstPrice" class="form-label">Цена, от</label>
+                <input type="number" class="form-control" name="firstPrice" value="0" id="firstPrice">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="lastPrice" class="form-label">Цена, до</label>
+                <input type="number" class="form-control" name="lastPrice" value="1000000" id="lastPrice">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="firstMileage" class="form-label">Пробег, от</label>
+                <input type="number" class="form-control" name="firstMileage" value="0" id="firstMileage">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="lastMileage" class="form-label">Пробег, до</label>
+                <input type="number" class="form-control" name="lastMileage" value="10000000" id="lastMileage">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="firstEngineVolume" class="form-label">Объем двигателя, от</label>
+                <input type="number" step="any" class="form-control" name="firstEngineVolume" value="0" id="firstEngineVolume">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="lastEngineVolume" class="form-label">Объем двигателя, до</label>
+                <input type="number" step="any" class="form-control" name="lastEngineVolume" value="8.4" id="lastEngineVolume">
+            </div>
+        </div>
+        <div class="form-group">
+        <label for="car_type" class="form-label">Тип кузова</label>
+        <select id="car_type" name="car_type" class="form-control">
+            <tr>
+                <option>Не выбрано</option>
+            </tr>
+            <tr th:each="type : ${car_type}">
+                <option th:text="${type.title}"></option>
+            </tr>
+        </select>
+        </div>
+        <div class="form-group">
+        <label for="fuel" class="form-label">Топливо</label>
+        <select id="fuel" name="fuel" class="form-control">
+            <tr>
+                <option>Не выбрано</option>
+            </tr>
+            <tr th:each="f : ${fuel}">
+                <option th:text="${f.title}"></option>
+            </tr>
+         </select>
+        </div>
+        <div class="form-group">
+        <label for="transmission" class="form-label">Коробка передач</label>
+        <select id="transmission" name="transmission" class="form-control">
+            <tr>
+                <option>Не выбрано</option>
+            </tr>
+            <tr th:each="tran : ${transmission}">
+                <option th:text="${tran.title}"></option>
+            </tr>
+        </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Поиск</button>
+    </form>
+</body>
+</html>

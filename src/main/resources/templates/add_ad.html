@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Выставить объявление</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="text-center">
+  <h1>Выставление объявления</h1>
+</div>
+<form th:action="@{/add_ad/{id}(id=${user.id})}" style="width: 50%;margin: auto" method="post">
+  <div class="form-group">
+    <label for="carBrand">Марка авто</label>
+    <input type="text" class="form-control" id="carBrand" name="carBrand" placeholder="BMW" required>
+  </div>
+  <div class="form-group">
+    <label for="carModel">Марка авто</label>
+    <input type="text" class="form-control" name="carModel" id="carModel" placeholder="M5" required>
+  </div>
+  <div class="form-group">
+    <label for="year">Год</label>
+    <input type="number" class="form-control" name="year" id="year" placeholder="2010" required>
+  </div>
+  <div class="form-group">
+    <label for="price">Цена (в долларах)</label>
+    <input type="number" onkeypress="return event.charCode >= 48" min="1" class="form-control" name="price" id="price" placeholder="12000" required>
+  </div>
+  <div class="form-group">
+    <label for="mileage">Пробег (в км.)</label>
+    <input type="number" onkeypress="return event.charCode >= 48" min="1" class="form-control" name="mileage" id="mileage" placeholder="120000" required>
+  </div>
+  <div class="form-group">
+    <label for="engine_volume">Объем двигателя (в литрах)</label>
+    <input type="number" onkeypress="return event.charCode >= 48 || event.charCode === 46 || event.charCode === 44" step="any" class="form-control" name="engine_volume" id="engine_volume" required placeholder="3.5">
+  </div>
+  <div class="form-group">
+    <label for="car_type">Тип кузова</label>
+    <select class="form-control" id="car_type" name="car_type" required>
+      <tr th:each="f : ${car_type}">
+        <option th:text="${f.title}"></option>
+      </tr>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="transmission">Коробка передач</label>
+    <select class="form-control" id="transmission" required name="transmission">
+      <tr th:each="tran : ${transmission}">
+        <option th:text="${tran.title}"></option>
+      </tr>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="fuel">Топливо</label>
+    <select class="form-control" id="fuel" name="fuel" required>
+      <tr th:each="f : ${fuel}">
+        <option th:text="${f.title}"></option>
+      </tr>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="add_information">Описание</label>
+    <input type="text" class="form-control" name="add_information" id="add_information">
+  </div>
+  <button class="btn btn-primary" type="submit">Выставить</button>
+</form>
+</body>
+</html>
