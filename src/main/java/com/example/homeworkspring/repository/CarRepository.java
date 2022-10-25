@@ -1,15 +1,15 @@
 package com.example.homeworkspring.repository;
 
-import com.example.homeworkspring.entities.Car;
-import com.example.homeworkspring.entities.CarType;
-import com.example.homeworkspring.entities.Fuel;
-import com.example.homeworkspring.entities.Transmission;
+import com.example.homeworkspring.entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface CarRepository extends JpaRepository<Car, Integer> {
+
+    @Query("select c from Car c where c.condition = ?1")
+    List<Car> findByCondition(AdState adState);
 
     @Query("select c from Car c where c.user.id = ?1 ")
     List<Car> findByUserId(int id);

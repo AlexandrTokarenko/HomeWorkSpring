@@ -47,6 +47,18 @@ public class Car {
     @Column(name = "additional_information")
     private String additionalInformation;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "condition")
+    private AdState condition;
+
+    public AdState getCondition() {
+        return condition;
+    }
+
+    public void setCondition(AdState condition) {
+        this.condition = condition;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -142,6 +154,8 @@ public class Car {
     public void setAdditionalInformation(String additionalInformation) {
         this.additionalInformation = additionalInformation;
     }
+
+
 
     @Override
     public String toString() {

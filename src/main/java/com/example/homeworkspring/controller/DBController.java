@@ -19,6 +19,7 @@ public class DBController {
     private FuelRepository fuelRepository;
     private TransmissionRepository transmissionRepository;
     private UserRepository userRepository;
+    private AdStateRepository adStateRepository;
 
     @GetMapping("/registration")
     public String clickRegistration(Model model) {
@@ -31,7 +32,7 @@ public class DBController {
 
         List<User> user = userRepository.findUserByEmailAndPassword(email, password);
         if (user.size() != 0) {
-            List<Car> cars = carRepository.findAll();
+            List<Car> cars = carRepository.findByCondition(adStateRepository.findByTitle("Открытое объявление"));
             model.addAttribute("cars", cars);
             model.addAttribute("user", userRepository.findUserByEmail(email).get(0));
             return "mainMenu";
@@ -106,6 +107,7 @@ public class DBController {
             model.addAttribute("car_type", carTypeRepository.findAll());
             model.addAttribute("fuel", fuelRepository.findAll());
             model.addAttribute("transmission", transmissionRepository.findAll());
+            model.addAttribute("adState",adStateRepository.findAll());
             return "edit_ad";
         }
     }
@@ -114,7 +116,8 @@ public class DBController {
     public String updateGroup(@PathVariable("userId") int userId,@PathVariable("adId") int adId, Car car, @RequestParam String carBrand,  @RequestParam String carModel,
                               @RequestParam int year,  @RequestParam int price,  @RequestParam int mileage,
                               @RequestParam double engine_volume, @RequestParam String car_type,
-                              @RequestParam String transmission, @RequestParam String fuel, @RequestParam String add_information, Model model) {
+                              @RequestParam String transmission, @RequestParam String fuel, @RequestParam String add_information,
+                              @RequestParam String condition, Model model) {
         Optional<Car> ca = carRepository.findById(adId);
         Car car1 = ca.get();
         car1.setBrand(carBrand);
@@ -127,6 +130,7 @@ public class DBController {
         car1.setFuel(fuelRepository.findByTitle(fuel));
         car1.setTransmission(transmissionRepository.findByTitle(transmission));
         car1.setAdditionalInformation(add_information);
+        car1.setCondition(adStateRepository.findByTitle(condition));
         carRepository.save(car1);
         model.addAttribute("cars",carRepository.findByUserId(userId));
         model.addAttribute("user",userRepository.findById(userId).get());
@@ -156,7 +160,7 @@ public class DBController {
         List<Car> cars = carRepository.findByBrandLikeAndModelLikeAndPriceBetweenAndYearBetweenAndMileageBetweenAndEngineVolumeBetween(
                 carBrand + "%",carModel + "%",firstPrice,lastPrice+1,firstYear,lastYear+1,firstMileage,lastMileage+1,
                 firstEngineVolume,lastEngineVolume+0.1);
-
+        cars = cars.stream().filter(x -> x.getCondition().getTitle().equals("Открытое объявление")).toList();
         if (!car_type.equals("Не выбрано")) {
             cars =  cars.stream().filter(x -> x.getType().getTitle().equals(car_type)).toList();
         } if (!fuel.equals("Не выбрано")) {
@@ -203,6 +207,7 @@ public class DBController {
         car.setUser(userRepository.findById(id).get());
         car.setTransmission(transmissionRepository.findByTitle(transmission));
         car.setAdditionalInformation(add_information);
+        car.setCondition(adStateRepository.findByTitle("Открытое объявление"));
         carRepository.save(car);
         model.addAttribute("user",userRepository.findById(id).get());
         model.addAttribute("cars", carRepository.findByUserId(id));
@@ -211,7 +216,7 @@ public class DBController {
 
     @GetMapping ("/goMainMenu/{id}")
     public String showMainMenu(@PathVariable("id") int id, Model model) {
-        model.addAttribute("cars", carRepository.findAll());
+        model.addAttribute("cars", carRepository.findByCondition(adStateRepository.findByTitle("Открытое объявление")));
         model.addAttribute("user", userRepository.findById(id).get());
         return "mainMenu";
     }
@@ -230,7 +235,7 @@ public class DBController {
     public String deleteFilter(@PathVariable("id") int id, Model model) {
 
         model.addAttribute("user", userRepository.findById(id).get());
-        model.addAttribute("cars",carRepository.findAll());
+        model.addAttribute("cars",carRepository.findByCondition(adStateRepository.findByTitle("Открытое объявление")));
         return "mainMenu";
     }
 
