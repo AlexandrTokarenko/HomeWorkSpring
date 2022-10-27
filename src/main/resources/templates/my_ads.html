@@ -5,15 +5,23 @@
     <title>Мои объявления</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
 <body>
-<form th:action="@{/click_add_ad/{id}(id=${user.id})}">
-    <button type="submit" style="margin: 0 0 0 auto;" class="btn btn-success" >Выставить объявление</button>
-</form>
-<form th:action="@{/goMainMenu/{id}(id=${user.id})}">
-    <button type="submit" style="margin: 0 0 0 auto;" class="btn btn-primary" >Основное меню</button>
-</form>
-<table style="width: 60%;margin: auto" class="table table-striped">
+<div class="fixed-top">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <a class="navbar-brand"  th:href="@{/backMainMenu/{id}(id=${user.id})}">Все объявления</a>
+        <a class="navbar-brand"  th:href="@{/my_ads/{id}(id=${user.id})}">Мои объявления</a>
+        <a class="navbar-brand"  th:href="@{/filter/{id}(id=${user.id})}">Фильтр</a>
+        <a class="btn btn-lg btn-danger" style="margin-left: auto" th:href="@{/exit_profile}">Выход</a>
+    </nav>
+</div>
+<div style="margin-top: 100px" class="text-center">
+    <form th:action="@{/click_add_ad/{id}(id=${user.id})}">
+        <button type="submit" class="btn btn-success" >Выставить объявление</button>
+    </form>
+</div>
+<table style="width: 60%;margin-top: 20px;" class="table table-striped">
     <thead>
     <tr>
         <th>Марка</th>
@@ -32,7 +40,7 @@
             <td th:text="${car.model}"></td>
             <td th:text="${car.year}"></td>
             <td th:text="${car.price}"></td>
-            <td width="100">  <a th:href="@{/car_information/{id}(id=${car.id})}">Информация</a></td>
+            <td width="100">  <a th:href="@{/car_information/{ad_id}/{user_id}(ad_id=${car.id},user_id=${user.id})}">Информация</a></td>
             <td><a th:href="@{/edit_ad/{userId}/{adId}(userId=${user.id},adId=${car.id})}">изменить</a></td>
             <td><a th:href="@{/delete_ad/{userId}/{adId}(userId=${user.id},adId=${car.id})}">удалить</a></td>
             <td th:text="${car.condition.title}"></td>
@@ -41,3 +49,10 @@
 </table>
 </body>
 </html>
+
+<!--<form th:action="@{/click_add_ad/{id}(id=${user.id})}">-->
+<!--    <button type="submit" style="margin: 0 0 0 auto;" class="btn btn-success" >Выставить объявление</button>-->
+<!--</form>-->
+<!--<form th:action="@{/backMainMenu/{id}(id=${user.id})}">-->
+<!--    <button type="submit" style="margin: 0 0 0 auto;" class="btn btn-primary" >Основное меню</button>-->
+<!--</form>-->

@@ -5,12 +5,21 @@
     <title>Правка объявления</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
 <body>
-<div class="text-center">
+<div class="fixed-top">
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <a class="navbar-brand"  th:href="@{/backMainMenu/{id}(id=${user.id})}">Все объявления</a>
+    <a class="navbar-brand"  th:href="@{/my_ads/{id}(id=${user.id})}">Мои объявления</a>
+    <a class="navbar-brand"  th:href="@{/filter/{id}(id=${user.id})}">Фильтр</a>
+    <a class="btn btn-lg btn-danger" style="margin-left: auto" th:href="@{/exit_profile}">Выход</a>
+  </nav>
+</div>
+<div style="margin-top: 100px" class="text-center">
   <h1>Изменение объявления</h1>
 </div>
-<form th:action="@{/update_ad/{userId}/{adId}(userId=${user.id},adId=${car.id})}" th:object="${car}" style="width: 50%;margin: auto" method="post">
+<form th:action="@{/update_ad/{userId}/{adId}(userId=${user.id},adId=${car.id})}" th:object="${car}" style="width: 50%;margin-top: 20px" method="post">
   <div class="form-group">
     <label for="carBrand">Марка авто</label>
     <input type="text" class="form-control"  th:value="*{brand}" id="carBrand" name="carBrand">
