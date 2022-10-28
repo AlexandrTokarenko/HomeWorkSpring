@@ -23,7 +23,6 @@ public class DBController {
 
     @GetMapping("/registration")
     public String clickRegistration(Model model) {
-        System.out.println();
         return "registration";
     }
 
@@ -280,8 +279,8 @@ public class DBController {
         return "filter";
     }
 
-    @RequestMapping("/delete_filter/{id}")
-    public String deleteFilter(@PathVariable("id") int id, Model model) {
+    @RequestMapping("/remove_filter/{id}")
+    public String removeFilter(@PathVariable("id") int id, Model model) {
 
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
@@ -308,7 +307,7 @@ public class DBController {
     }
 
     @GetMapping("/delete_ad/{userId}/{adId}")
-    public String deleleAd(@PathVariable("userId") int userId, @PathVariable("adId") int adId, Model model) {
+    public String deleteAd(@PathVariable("userId") int userId, @PathVariable("adId") int adId, Model model) {
 
         Optional<Car> car = carRepository.findById(adId);
         Optional<User> user = userRepository.findById(userId);

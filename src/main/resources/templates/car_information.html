@@ -47,6 +47,7 @@
     </div>
     <div  style="width: 70%;margin: auto">
         <h4>Контакты владельца</h4>
+        <p th:text="'Владелец объявления: ' + ${user.firstname} + ' ' + ${user.lastname}"></p>
         <p th:text="'Номер телефона: ' + ${car.user.phone}"></p>
         <p th:text="'Электронная почта: ' + ${car.user.email}"></p>
     </div>
